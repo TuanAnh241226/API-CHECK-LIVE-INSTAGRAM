@@ -36,8 +36,8 @@ class Check(object):
             'x-requested-with': 'XMLHttpRequest',
         }
         params = {'count': '12',}
-        response = requests.post(f'https://www.instagram.com/api/v1/feed/user/{self.username}/username/',params=params,headers=headers).json()
         try:
+            response = requests.post(f'https://www.instagram.com/api/v1/feed/user/{self.username}/username/',params=params,headers=headers).json()
             response["user"]["username"]
             return True
         except:
