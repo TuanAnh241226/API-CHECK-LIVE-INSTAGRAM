@@ -9,11 +9,11 @@ def ping():
 @app.get("/checklive.php")
 
 def check_username():
-    account = request.args.get("username", "")
+    account = request.args.get("account", "")
     api_key = request.args.get("api_key", "")
     if api_key != "nguyentuananh":
         return {"error": "api_key khong hợp lệ"}
-    username = account.split("|")
+    username = account.split("|")[0]
     status = api_checklive.Check(username=username).checking()
     if status == True:
         response = {
