@@ -15,6 +15,9 @@ def check_username():
         return {"error": "api_key khong hợp lệ"}
     username = account.split("|")[0]
     status = api_checklive.Check(username=username).checking()
+    print(status)
+
+
     if status == None:
         response = {
             "status": "fail",
@@ -24,7 +27,9 @@ def check_username():
             },
             "message": "Check live completed failed."
             }
-    if status == True:
+        
+
+    elif status == True:
         response = {
             "status": "success",
             "data": {
@@ -42,7 +47,6 @@ def check_username():
             },
             "message": "Check live completed successfully."
             }
-    print(response)
     return jsonify(response)
 
     
