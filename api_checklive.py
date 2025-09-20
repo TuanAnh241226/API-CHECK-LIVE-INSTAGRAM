@@ -45,7 +45,7 @@ class Check(object):
         except Exception as e:
             print(e)
             return None
-        if response["status"] != "ok":
+        if response["require_login"] == True:
             return None
         try:
             response["user"]["username"]
@@ -54,8 +54,8 @@ class Check(object):
             return False
 
 # while True:
-#     check = Check(username="sharon59_486272").checking()
+#     check = Check(username="lmccoy_877364").checking()
 #     if check == None or check == False: break
 #     break
 
-# #   {'message': 'Vui lòng chờ vài phút trước khi thử lại.', 'require_login': True, 'igweb_rollout': True, 'status': 'fail'}
+#   {'message': 'Vui lòng chờ vài phút trước khi thử lại.', 'require_login': True, 'igweb_rollout': True, 'status': 'fail'}
