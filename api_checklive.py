@@ -42,13 +42,20 @@ class Check(object):
         try:
             response = requests.post(f'https://www.instagram.com/api/v1/feed/user/{self.username}/username/',params=params,headers=headers).json()
             print(response)
-            if response["status"] != "ok":
-                return None
         except Exception as e:
             print(e)
+            return None
+        if response["status"] != "ok":
             return None
         try:
             response["user"]["username"]
             return True
         except:
             return False
+
+# while True:
+#     check = Check(username="sharon59_486272").checking()
+#     if check == None or check == False: break
+#     break
+
+# #   {'message': 'Vui lòng chờ vài phút trước khi thử lại.', 'require_login': True, 'igweb_rollout': True, 'status': 'fail'}
