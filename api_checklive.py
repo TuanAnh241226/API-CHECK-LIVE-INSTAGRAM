@@ -45,7 +45,7 @@ class Check(object):
         except Exception as e:
             print(e)
             return None
-        if response["require_login"] == True:
+        if response["status"] == "fail":
             return None
         try:
             response["user"]["username"]
