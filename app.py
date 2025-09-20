@@ -15,6 +15,15 @@ def check_username():
         return {"error": "api_key khong hợp lệ"}
     username = account.split("|")[0]
     status = api_checklive.Check(username=username).checking()
+    if status == None:
+        response = {
+            "status": "fail",
+            "data": {
+                "username": username,
+                "status": "None"
+            },
+            "message": "Check live completed failed."
+            }
     if status == True:
         response = {
             "status": "success",
