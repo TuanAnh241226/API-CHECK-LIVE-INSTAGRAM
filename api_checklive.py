@@ -4,7 +4,7 @@ class Check(object):
     def __init__(self,username,proxy=None):
         self.proxy = {
             "http": "http://com100654271-zone-custom:2179803216@geo.iprocket.io:2224",
-            "https": "http://com100654271-zone-custom:2179803216@geo.iprocket.io:2224"
+            "https": "http://com100654271-zone-custom:2179803216@geo.iprocket.io:2224"  
         }
         self.username = username
     def checking(self):
@@ -41,6 +41,9 @@ class Check(object):
         params = {'count': '12',}
         try:
             response = requests.post(f'https://www.instagram.com/api/v1/feed/user/{self.username}/username/',params=params,headers=headers).json()
+            print(response)
+            if response["status"] != "ok":
+                return None
         except Exception as e:
             print(e)
             return None
