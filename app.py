@@ -42,6 +42,7 @@ def check_username():
             },
             "message": "Check live completed successfully."
             }
+    print(response)
     return jsonify(response)
 
     
