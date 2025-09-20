@@ -40,7 +40,7 @@ class Check(object):
         }
         params = {'count': '12',}
         try:
-            response = requests.post(f'https://www.instagram.com/api/v1/feed/user/{self.username}/username/',params=params,headers=headers, proxies=self.proxy).json()
+            response = requests.post(f'https://www.instagram.com/api/v1/feed/user/{self.username}/username/',params=params,headers=headers).json()
         except Exception as e:
             print(e)
             return None
