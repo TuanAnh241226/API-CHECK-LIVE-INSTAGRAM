@@ -2,7 +2,10 @@ import requests
 import random
 class Check(object):
     def __init__(self,username,proxy=None):
-        self.proxy = proxy
+        self.proxy = {
+            "http": "http://com100654271-zone-custom:2179803216@geo.iprocket.io:2224",
+            "https": "http://com100654271-zone-custom:2179803216@geo.iprocket.io:2224"
+        }
         self.username = username
     def checking(self):
         android_versions = ["10", "11", "12", "13"]
@@ -37,7 +40,11 @@ class Check(object):
         }
         params = {'count': '12',}
         try:
-            response = requests.post(f'https://www.instagram.com/api/v1/feed/user/{self.username}/username/',params=params,headers=headers).json()
+            response = requests.post(f'https://www.instagram.com/api/v1/feed/user/{self.username}/username/',params=params,headers=headers, proxies=self.proxy).json()
+        except Exception as e:
+            print(e)
+            return None
+        try:
             response["user"]["username"]
             return True
         except:
