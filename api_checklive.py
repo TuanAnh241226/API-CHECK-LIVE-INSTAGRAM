@@ -3,59 +3,55 @@ import random
 class Check(object):
     def __init__(self,username,proxy=None):
         self.proxy = {
-            "http": "http://com100654271-zone-custom:2179803216@geo.iprocket.io:2224",
-            "https": "http://com100654271-zone-custom:2179803216@geo.iprocket.io:2224"  
+            "http": "http://ZP20160_NFQPcx:M8NQSIg6__country-vn_session-t4wnlq8q_lifetime-m@amz5.zingproxy.com:11222",
+            "https": "http://ZP20160_NFQPcx:M8NQSIg6__country-vn_session-t4wnlq8q_lifetime-m@amz5.zingproxy.com:11222"  
+            #amz5.zingproxy.com:11222:ZP20160_NFQPcx:M8NQSIg6__country-vn_session-t4wnlq8q_lifetime-m
         }
         self.username = username
     def checking(self):
-        android_versions = ["10", "11", "12", "13"]
-        devices = ["SM-G960F", "SM-G930F", "SM-G998B", "SM-G991B", "SM-A515F", "SM-N975F", "SM-G780G", "SM-A525F", "SM-G998B", "SM-N9810"]
-        chrome_versions = ["131.0.0.0", "130.0.0.0", "129.0.0.0", "128.0.0.0", "127.0.0.0"]
-        build_versions = ["PPR1.180610.011", "RQ3A.210805.001", "SP1A.210812.016", "AOSP.210812.016", "QP1A.190711.020"]
-        build_version = random.choice(build_versions)
-        android_version = random.choice(android_versions)
-        device = random.choice(devices)
-        chrome_version = random.choice(chrome_versions)
-        user_agent = f"Mozilla/5.0 (Linux; Android {android_version}; {device} Build/{build_version}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Mobile Safari/537.36"
         headers = {
-            'authority': 'www.instagram.com',
-            'accept': '*/*',
-            'accept-language': 'vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5',
-            'referer': 'https://www.instagram.com/',
-            'sec-ch-prefers-color-scheme': 'dark',
-            'sec-ch-ua': '"Google Chrome";v="107", "Chromium";v="107", "Not=A?Brand";v="24"',
+            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+            'accept-language': 'en-US,en;q=0.9',
+            'cache-control': 'no-cache',
+            'cookie': 'ig_did=2F6B1652-1252-4519-B7C1-FCCEBE936429; csrftoken=iARQv8L1zQoK3fGieZlkj7; datr=7ArQaHL5TWqusnvocJGXGd10; mid=aNAK7AAEAAF_sxQf21uzBiO7RwS8; wd=499x857',
+            'dpr': '1.5',
+            'pragma': 'no-cache',
+            'priority': 'u=0, i',
+            'sec-ch-prefers-color-scheme': 'light',
+            'sec-ch-ua': '"Not A(Brand";v="8", "Chromium";v="132", "Google Chrome";v="132"',
+            'sec-ch-ua-full-version-list': '"Not A(Brand";v="8.0.0.0", "Chromium";v="132.0.6834.196", "Google Chrome";v="132.0.6834.196"',
             'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-model': '""',
             'sec-ch-ua-platform': '"Windows"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-origin',
-            'user-agent': user_agent,
-            'viewport-width': '521',
-            'x-asbd-id': '198387',
-            'x-csrftoken': 'swHjV5IsFciWXXb90ey4sQ69N9RMjO8S',
-            'x-ig-app-id': '936619743392459',
-            'x-ig-www-claim': 'hmac.AR2Nc8ncW4a-SseKs1h3LLgACXFvdcRKTAAE6YA1rx97kl87',
-            'x-instagram-ajax': '1006681141',
-            'x-requested-with': 'XMLHttpRequest',
+            'sec-ch-ua-platform-version': '"15.0.0"',
+            'sec-fetch-dest': 'document',
+            'sec-fetch-mode': 'navigate',
+            'sec-fetch-site': 'none',
+            'sec-fetch-user': '?1',
+            'upgrade-insecure-requests': '1',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
+            'viewport-width': '434',
         }
-        params = {'count': '12',}
         try:
-            response = requests.post(f'https://www.instagram.com/api/v1/feed/user/{self.username}/username/',params=params,headers=headers).json()
-            print(response)
-        except Exception as e:
-            print(e) 
-            return None
-        if response["status"] == "fail":
-            return None
-        try:
-            response["user"]["username"]
-            return True
+            response = requests.get(f'https://www.instagram.com/{self.username}/', proxies=self.proxy)
+            # print(response.text)
         except:
-            return False
+            return None
+        if '"success_status":"success"' in response.text:
+            print(response.url)
+            try:
+                if response.text.split('"query":{"username":"')[1].split('"')[0] == self.username:
+                    return True
+                return None
+            except Exception as e:
+                print(str(e))
+                return False
+        return None
 
 # while True:
-#     check = Check(username="sdgkjsjdsgs").checking()
-#     if check == None or check == False: break
-#     break
+#     check = Check(username="ksdfn").checking()
+#     print(check)
+    # if check == None or check == False: break
+    # break
 
 #   {'message': 'Vui lòng chờ vài phút trước khi thử lại.', 'require_login': True, 'igweb_rollout': True, 'status': 'fail'}
